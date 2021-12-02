@@ -30,7 +30,6 @@ public class Employee {
     @JoinTable(name = "EMP_DEP",
             joinColumns = {@JoinColumn(name = "EMP_ID", nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "DEP_ID", nullable = false)})
-    @Column(nullable = false)
     private Set<Department> departments = new HashSet<>();
 
     public Long getId() {

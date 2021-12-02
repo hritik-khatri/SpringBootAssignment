@@ -4,10 +4,7 @@ import com.example.accessingdatamysql.Employee.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
@@ -36,20 +33,36 @@ public class DepartmentServices {
 
     public void saveOrUpdate(Department department)
     {
+
         departmentRepository.save(department);
     }
 
-    public  Set<Long> getAllEmpsId(Long id) {
-        Set<Long> x = new HashSet<>();
-        if (departmentRepository.findById(id) != null) {
-            Department department = departmentRepository.findById(id).orElse(null);
-            Set<Employee> employees = department.getEmployee();
-            for(Employee z : employees){
-                x.add(z.getId());
-            }}
-
-
-            return x;
+    public Department updateDep(Long id ,Department department){
+        Department department1 = departmentRepository.findById(id).get();
+        if(Objects.nonNull(department.getName()) &&
+                !"".equalsIgnoreCase(department.getName())) {
+            department1.setName(department.getName());
         }
+        if(Objects.nonNull(department.getDepHead()) &&
+                !"".equalsIgnoreCase(department.getDepHead())) {
+            department1.setDepHead(department.getDepHead());
+        }
+        return  departmentRepository.save(department1);
+
+    }
+
+//    public  Set<Long> getAllEmpsId(Long id) {
+//        Set<Long> x = new HashSet<>();
+//        if (departmentRepository.findById(id) != null) {
+//            Department department = departmentRepository.findById(id).orElse(null);
+//            Set<Employee> employees = department.getEmployee();
+//            for(Employee z : employees){
+//                x.add(z.getId());
+//            }}
+//
+//
+//            return x;
+//        }
+
 
 }

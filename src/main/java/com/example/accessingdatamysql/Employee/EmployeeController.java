@@ -42,16 +42,24 @@ public class EmployeeController
 
     }
 
-       @GetMapping(path = "/{id}")
+      @GetMapping(path = "/{id}")
         private Employee empById(@PathVariable("id") long id) {
         return employeeServices.getEmpById(id);
        }
 
-      @GetMapping("/delete/{id}")
+      @DeleteMapping("/{id}")
       private @ResponseBody String DeleteEmp(@PathVariable("id") String id) {
         employeeServices.deleteById(parseLong(id));
         return "Deleted!";
 
+    }
+
+    @PutMapping("/{id}")
+    private  @ResponseBody Employee UpdateEmp(@PathVariable("id") String id,
+                                            @RequestBody Employee employee)
+    {
+
+        return  employeeServices.updateEmployee(parseLong(id),employee);
     }
 
 

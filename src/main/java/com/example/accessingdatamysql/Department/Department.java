@@ -1,16 +1,16 @@
 package com.example.accessingdatamysql.Department;
 
 
+
 import com.example.accessingdatamysql.Employee.Employee;
 
 import javax.persistence.*;
-
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity // This tells Hibernate to make a table out of this class
-@Table(name ="DEPARTMENT" )
-
+@Table(name ="DEPARTMENT" , uniqueConstraints = @UniqueConstraint(name = "name", columnNames = "DEP_NAME"))
 public class Department {
 
 
@@ -19,7 +19,8 @@ public class Department {
    @GeneratedValue(strategy=GenerationType.IDENTITY)
    private Long depId;
 
-    @Column(name = "DEP_NAME")
+    @NotBlank(message = "Name may not be blank")
+    @Column(name = "DEP_NAME", nullable = false)
     private String name;
 
     @Column(name = "DEP_HEAD")

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -58,6 +59,7 @@ public class EmployeeServices {
         if (!departments.isEmpty()) {
             newEmployee.setDepartments(departments);
             employeeRepository.save(newEmployee);
+
             return "Employee Added successfully";
         } else {
             return "Please enter valid Department/s";
@@ -65,7 +67,21 @@ public class EmployeeServices {
     }
 
 
+    public Employee updateEmployee(Long id, Employee employee)
+    {
+     Employee employee1 = new Employee();
+             employee1 = employeeRepository.findById(id).get();
+        if(Objects.nonNull(employee.getName()) &&
+                !"".equalsIgnoreCase(employee.getName())) {
+            employee1.setName(employee.getName());
+        }
+        if(Objects.nonNull(employee.getL_name()) &&
+                !"".equalsIgnoreCase(employee.getL_name())) {
+            employee1.setL_name(employee.getL_name());
+        }
 
+     return  employeeRepository.save(employee1);
+    }
 
 
 
